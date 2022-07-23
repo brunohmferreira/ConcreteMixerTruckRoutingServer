@@ -1,4 +1,13 @@
-﻿namespace ConcreteMixerTruckRoutingServer.Api.Startups
+﻿using ConcreteMixerTruckRoutingServer.Repositories.Base;
+using ConcreteMixerTruckRoutingServer.Repositories.Construction;
+using ConcreteMixerTruckRoutingServer.Repositories.Interfaces.Base;
+using ConcreteMixerTruckRoutingServer.Repositories.Interfaces.Construction;
+using ConcreteMixerTruckRoutingServer.Services.Construction;
+using ConcreteMixerTruckRoutingServer.Services.Interfaces.Construction;
+using ConcreteMixerTruckRoutingServer.UnitOfWorks;
+using ConcreteMixerTruckRoutingServer.UnitOfWorks.Interfaces;
+
+namespace ConcreteMixerTruckRoutingServer.Api.Startups
 {
     public static class DIStartup
     {
@@ -7,19 +16,19 @@
             services.AddHttpContextAccessor();
 
             #region UnitOfWorks
-            //services.AddScoped<ISiacWebUnitOfWork, SiacWebUnitOfWork>();
+            services.AddScoped<IDatabaseUnitOfWork, DatabaseUnitOfWork>();
             #endregion
 
             #region Contexts
-            //services.AddScoped<ICorporativoContexto, CorporativoContexto>();
+            services.AddScoped<IDatabaseContext, DatabaseContext>();
             #endregion
 
             #region Services
-            //services.AddScoped<IAutorizacaoRestServico, AutorizacaoRestServico>();
+            services.AddScoped<IConstructionService, ConstructionService>();
             #endregion
 
             #region Repositories
-            //services.AddScoped<IImplantacaoDataSourceRepositorio, ImplantacaoDataSourceRepositorio>();
+            services.AddScoped<IConstructionRepository, ConstructionRepository>();
             #endregion
         }
     }

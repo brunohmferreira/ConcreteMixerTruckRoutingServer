@@ -1,4 +1,4 @@
-﻿namespace ConcreteMixerTruckRoutingServer.Api.Models
+﻿namespace ConcreteMixerTruckRoutingServer.Api.Models.General
 {
     public class ExceptionModel
     {

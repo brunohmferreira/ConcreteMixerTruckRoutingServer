@@ -1,4 +1,4 @@
-﻿using ConcreteMixerTruckRoutingServer.Api.Models;
+﻿using ConcreteMixerTruckRoutingServer.Api.Models.General;
 using ConcreteMixerTruckRoutingServer.Exceptions.General;
 using Microsoft.AspNetCore.Diagnostics;
 using System.Net;

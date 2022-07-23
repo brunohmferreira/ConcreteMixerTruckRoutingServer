@@ -11,6 +11,8 @@ builder.Services.AddCustomCors();
 
 builder.Services.AddMemoryCache();
 
+builder.Services.AddCustomAutoMapper();
+
 builder.Services.AddCustomMvc();
 
 builder.Services.AddCustomSwagger();
