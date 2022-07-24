@@ -1,6 +1,7 @@
 using AutoMapper;
 using ConcreteMixerTruckRoutingServer.Api.Models.Construction;
 using ConcreteMixerTruckRoutingServer.Api.Models.General;
+using ConcreteMixerTruckRoutingServer.Dtos.Construction;
 using ConcreteMixerTruckRoutingServer.Services.Interfaces.Construction;
 using Microsoft.AspNetCore.Mvc;
 using System.ComponentModel;
@@ -34,7 +35,7 @@ public class ConstructionController : ControllerBase
     #region GET
 
     /// <summary>
-    /// Get the list of pending constructions for delivery
+    /// Gets the list of pending constructions for delivery
     /// </summary>
     /// <returns>List of pending constructions for delivery</returns>
     [HttpGet(Name = "GetConstructions")]
@@ -48,7 +49,7 @@ public class ConstructionController : ControllerBase
     }
 
     /// <summary>
-    /// Get the construction by id
+    /// Gets the construction by id
     /// </summary>
     /// /// <param name="constructionId">Construction identifier</param>
     /// <returns>Construction</returns>
@@ -61,6 +62,42 @@ public class ConstructionController : ControllerBase
         var response = await ConstructionService.GetConstructionById(constructionId);
         return Ok(Mapper.Map<GetResponseModel>(response));
     }
+
+    #endregion
+
+    #region POST
+
+    /// <summary>
+    /// Inserts a new construction, client and concrete type
+    /// </summary>
+    /// <param name="model">Request model</param>
+    [HttpPost(Name = "PostConstruction")]
+    [ProducesResponseType(typeof(ExceptionModel), (int)HttpStatusCode.BadRequest)]
+    [ProducesResponseType(typeof(ExceptionModel), (int)HttpStatusCode.InternalServerError)]
+    public async Task<IActionResult> Post([FromBody] PostRequestModel model)
+    {
+        var dto = Mapper.Map<PostRequestDto>(model);
+
+        var constructionId = await ConstructionService.InsertConstruction(dto);
+
+        return CreatedAtAction(nameof(GetById),
+            new
+            {
+                constructionId,
+                versao = HttpContext.GetRequestedApiVersion()?.ToString()
+            },
+            constructionId);
+    }
+
+    #endregion
+
+    #region PUT
+
+
+    #endregion
+
+    #region DELETE
+
 
     #endregion
 }

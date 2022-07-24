@@ -1,8 +1,16 @@
 ﻿using ConcreteMixerTruckRoutingServer.Repositories.Base;
+using ConcreteMixerTruckRoutingServer.Repositories.Client;
+using ConcreteMixerTruckRoutingServer.Repositories.ConcreteType;
 using ConcreteMixerTruckRoutingServer.Repositories.Construction;
 using ConcreteMixerTruckRoutingServer.Repositories.Interfaces.Base;
+using ConcreteMixerTruckRoutingServer.Repositories.Interfaces.Client;
+using ConcreteMixerTruckRoutingServer.Repositories.Interfaces.ConcreteType;
 using ConcreteMixerTruckRoutingServer.Repositories.Interfaces.Construction;
+using ConcreteMixerTruckRoutingServer.Services.Client;
+using ConcreteMixerTruckRoutingServer.Services.ConcreteType;
 using ConcreteMixerTruckRoutingServer.Services.Construction;
+using ConcreteMixerTruckRoutingServer.Services.Interfaces.Client;
+using ConcreteMixerTruckRoutingServer.Services.Interfaces.ConcreteType;
 using ConcreteMixerTruckRoutingServer.Services.Interfaces.Construction;
 using ConcreteMixerTruckRoutingServer.UnitOfWorks;
 using ConcreteMixerTruckRoutingServer.UnitOfWorks.Interfaces;
@@ -25,10 +33,14 @@ namespace ConcreteMixerTruckRoutingServer.Api.Startups
 
             #region Services
             services.AddScoped<IConstructionService, ConstructionService>();
+            services.AddScoped<IClientService, ClientService>();
+            services.AddScoped<IConcreteTypeService, ConcreteTypeService>();
             #endregion
 
             #region Repositories
             services.AddScoped<IConstructionRepository, ConstructionRepository>();
+            services.AddScoped<IClientRepository, ClientRepository>();
+            services.AddScoped<IConcreteTypeRepository, ConcreteTypeRepository>();
             #endregion
         }
     }

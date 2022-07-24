@@ -23,13 +23,28 @@ namespace ConcreteMixerTruckRoutingServer.Api.Startups
             {
                 GeralMappingProfile();
                 ConstructionMappingProfile();
+                ClientMappingProfile();
+                ConcreteTypeMappingProfile();
             }
 
             public void GeralMappingProfile() { }
 
             public void ConstructionMappingProfile()
             {
-                CreateMap<Dtos.Constrution.GetResponseDto, Models.Construction.GetResponseModel>();
+                CreateMap<Dtos.Construction.GetResponseDto, Models.Construction.GetResponseModel>();
+                CreateMap<Models.Construction.PostRequestModel, Dtos.Construction.PostRequestDto>();
+            }
+
+            public void ClientMappingProfile()
+            {
+                CreateMap<Dtos.Client.GetResponseDto, Models.Client.GetResponseModel>();
+                CreateMap<Models.Client.PostRequestModel, Dtos.Client.PostRequestDto>();
+            }
+
+            public void ConcreteTypeMappingProfile()
+            {
+                CreateMap<Dtos.ConcreteType.GetResponseDto, Models.ConcreteType.GetResponseModel>();
+                CreateMap<Models.ConcreteType.PostRequestModel, Dtos.ConcreteType.PostRequestDto>();
             }
         }
     }

@@ -1,4 +1,4 @@
-﻿using ConcreteMixerTruckRoutingServer.Dtos.Constrution;
+﻿using ConcreteMixerTruckRoutingServer.Dtos.Construction;
 using ConcreteMixerTruckRoutingServer.Entities;
 using ConcreteMixerTruckRoutingServer.Repositories.Interfaces.Base;
 
@@ -8,5 +8,7 @@ namespace ConcreteMixerTruckRoutingServer.Repositories.Interfaces.Construction
     {
         Task<IEnumerable<ConstructionEntity>> GetConstructionsList();
         Task<ConstructionEntity> GetConstructionById(int constructionId);
+        Task<IEnumerable<ConstructionEntity>> GetConstructionsByFilter(GetRequestDto filter);
+        Task<int> InsertConstruction(PostRequestDto dto);
     }
 }
