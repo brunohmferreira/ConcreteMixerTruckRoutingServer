@@ -7,5 +7,7 @@ namespace ConcreteMixerTruckRoutingServer.Services.Interfaces.Construction
         Task<List<GetResponseDto>> GetConstructionsList();
         Task<GetResponseDto> GetConstructionById(int constructionId);
         Task<int> InsertConstruction(PostRequestDto dto);
+        Task<bool> UpdateConstruction(PutRequestDto dto);
+        Task<bool> DeleteConstruction(int constructionId);
     }
 }

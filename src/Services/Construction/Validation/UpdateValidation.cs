@@ -4,9 +4,9 @@ using FluentValidation;
 
 namespace ConcreteMixerTruckRoutingServer.Services.Construction.Validation
 {
-    public class InsertValidation: ValidationBase<PostRequestDto>
+    public class UpdateValidation : ValidationBase<PutRequestDto>
     {
-        public InsertValidation()
+        public UpdateValidation()
         {
             RuleFor(x => x)
                 .Must((model) =>

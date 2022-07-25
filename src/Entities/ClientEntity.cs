@@ -12,6 +12,5 @@ namespace ConcreteMixerTruckRoutingServer.Entities
 		public int ClientId { get; set; }
 		public string Name { get; set; }
 		public DateTime ChangeDatetime { get; set; }
-
 	}
 }

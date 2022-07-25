@@ -6,5 +6,6 @@ namespace ConcreteMixerTruckRoutingServer.Services.Interfaces.ConcreteType
     {
         Task<GetResponseDto> GetConcreteTypeById(int concreteTypeId);
         Task<int> InsertConcreteType(PostRequestDto dto);
+        Task<bool> UpdateConcreteType(PutRequestDto dto);
     }
 }

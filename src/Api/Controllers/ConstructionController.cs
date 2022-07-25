@@ -77,7 +77,6 @@ public class ConstructionController : ControllerBase
     public async Task<IActionResult> Post([FromBody] PostRequestModel model)
     {
         var dto = Mapper.Map<PostRequestDto>(model);
-
         var constructionId = await ConstructionService.InsertConstruction(dto);
 
         return CreatedAtAction(nameof(GetById),
@@ -93,11 +92,36 @@ public class ConstructionController : ControllerBase
 
     #region PUT
 
+    /// <summary>
+    /// Updates a construction
+    /// </summary>
+    /// <param name="model">Request model</param>
+    [HttpPut(Name = "PutConstruction")]
+    [ProducesResponseType(typeof(ExceptionModel), (int)HttpStatusCode.BadRequest)]
+    [ProducesResponseType(typeof(ExceptionModel), (int)HttpStatusCode.InternalServerError)]
+    public async Task<IActionResult> Put([FromBody] PutRequestModel model)
+    {
+        var dto = Mapper.Map<PutRequestDto>(model);
+        var response = await ConstructionService.UpdateConstruction(dto);
+        return Ok(response);
+    }
 
     #endregion
 
     #region DELETE
 
+    /// <summary>
+    /// Deletes a construction by id
+    /// </summary>
+    /// /// <param name="constructionId">Construction identifier</param>
+    [HttpDelete("{constructionId}", Name = "DeleteConstruction")]
+    [ProducesResponseType(typeof(ExceptionModel), (int)HttpStatusCode.BadRequest)]
+    [ProducesResponseType(typeof(ExceptionModel), (int)HttpStatusCode.InternalServerError)]
+    public async Task<IActionResult> Delete(int constructionId)
+    {
+        var response = await ConstructionService.DeleteConstruction(constructionId);
+        return Ok(response);
+    }
 
     #endregion
 }

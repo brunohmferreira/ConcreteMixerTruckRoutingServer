@@ -6,5 +6,6 @@ namespace ConcreteMixerTruckRoutingServer.Services.Interfaces.Client
     {
         Task<GetResponseDto> GetClientById(int clientId);
         Task<int> InsertClient(PostRequestDto dto);
+        Task<bool> UpdateClient(PutRequestDto dto);
     }
 }

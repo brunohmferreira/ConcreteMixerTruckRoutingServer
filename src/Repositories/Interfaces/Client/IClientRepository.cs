@@ -9,5 +9,6 @@ namespace ConcreteMixerTruckRoutingServer.Repositories.Interfaces.Client
         Task<ClientEntity> GetClientById(int clientId);
         Task<IEnumerable<ClientEntity>> GetClientByFilter(GetRequestDto filter);
         Task<int> InsertClient(PostRequestDto dto);
+        Task<bool> UpdateClient(PutRequestDto dto);
     }
 }

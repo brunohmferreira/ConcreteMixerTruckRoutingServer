@@ -36,8 +36,19 @@ namespace ConcreteMixerTruckRoutingServer.Services.Client
 
             var response = await TransactionExtension.ExecuteInTransactionAsync(async () =>
             {
-                int clientId = await DatabaseUnitOfWork.Client.InsertClient(dto);
-                return clientId;
+                return await DatabaseUnitOfWork.Client.InsertClient(dto);
+            }, DatabaseUnitOfWork);
+
+            return response;
+        }
+
+        public async Task<bool> UpdateClient(PutRequestDto dto)
+        {
+            await dto.Validate<UpdateValidation, PutRequestDto>(DatabaseUnitOfWork);
+
+            var response = await TransactionExtension.ExecuteInTransactionAsync(async () =>
+            {
+                return await DatabaseUnitOfWork.Client.UpdateClient(dto);
             }, DatabaseUnitOfWork);
 
             return response;

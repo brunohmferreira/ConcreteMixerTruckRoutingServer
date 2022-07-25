@@ -7,6 +7,7 @@
             Description = string.Empty;
             Client = new Client.GetResponseDto();
             ConcreteType = new ConcreteType.GetResponseDto();
+            Address = new Address.GetResponseDto();
         }
 
         public int ConstructionId { get; set; }
@@ -15,5 +16,6 @@
         public bool Delivered { get; set; }
         public Client.GetResponseDto Client { get; set; }
         public ConcreteType.GetResponseDto ConcreteType { get; set; }
+        public Address.GetResponseDto Address { get; set; }
     }
 }

@@ -96,5 +96,42 @@ namespace ConcreteMixerTruckRoutingServer.Repositories.Construction
                 },
                 transaction: Context.Transaction);
         }
+
+        public async Task<bool> UpdateConstruction(PutRequestDto dto)
+        {
+            var amountOfAffectedRows = await Context.Connection.ExecuteAsync(
+                sql: $@"
+                    UPDATE Construction 
+                    SET Description = @Description,
+                        ClientId = @ClientId,
+                        ConcreteTypeId = @ConcreteTypeId,
+                        VolumeDemand = @VolumeDemand,
+                        Delivered = @Delivered
+                    WHERE ConstructionId = @ConstructionId",
+                param: new
+                {
+                    ConstructionId = dto.ConstructionId,
+                    Description = dto.Description,
+                    ClientId = dto.Client.ClientId,
+                    ConcreteTypeId = dto.ConcreteType.ConcreteTypeId,
+                    VolumeDemand = dto.VolumeDemand,
+                    Delivered = dto.Delivered
+                },
+                transaction: Context.Transaction);
+
+            return amountOfAffectedRows > 0;
+        }
+
+        public async Task<bool> DeleteConstruction(int constructionId)
+        {
+            var amountOfAffectedRows = await Context.Connection.ExecuteAsync(
+                sql: $@"
+                    DELETE FROM Construction
+                    WHERE ConstructionId = @ConstructionId",
+                param: new { ConstructionId = constructionId },
+                transaction: Context.Transaction);
+
+            return amountOfAffectedRows > 0;
+        }
     }
 }

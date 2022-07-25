@@ -79,7 +79,7 @@ CREATE TABLE Address (
 	NoNumber 		BIT NOT NULL,
 	Complement 		VARCHAR(500) NULL,
 	Neighborhood	VARCHAR(100) NOT NULL,
-	PostalCode		VARCHAR(8) NOT NULL,
+	ZipCode			VARCHAR(9) NOT NULL,
 	City			VARCHAR(100) NOT NULL,
 	State			VARCHAR(100) NOT NULL,
 	Country			VARCHAR(100) NOT NULL,

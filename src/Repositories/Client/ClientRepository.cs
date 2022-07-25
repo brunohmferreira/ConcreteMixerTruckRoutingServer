@@ -53,5 +53,18 @@ namespace ConcreteMixerTruckRoutingServer.Repositories.Client
                 param: dto,
                 transaction: Context.Transaction);
         }
+
+        public async Task<bool> UpdateClient(PutRequestDto dto)
+        {
+            var amountOfAffectedRows = await Context.Connection.ExecuteAsync(
+                sql: $@"
+                    UPDATE Client 
+                    SET Name = @Name
+                    WHERE ClientId = @ClientId",
+                param: dto,
+                transaction: Context.Transaction);
+
+            return amountOfAffectedRows > 0;
+        }
     }
 }

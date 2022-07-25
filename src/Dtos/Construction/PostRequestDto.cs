@@ -7,6 +7,7 @@
             Description = string.Empty;
             Client = new Client.PostRequestDto();
             ConcreteType = new ConcreteType.PostRequestDto();
+            Address = new Address.PostRequestDto();
         }
 
         public string Description { get; set; }
@@ -14,5 +15,6 @@
         public bool Delivered { get; set; }
         public Client.PostRequestDto Client { get; set; }
         public ConcreteType.PostRequestDto ConcreteType { get; set; }
+        public Address.PostRequestDto Address { get; set; }
     }
 }

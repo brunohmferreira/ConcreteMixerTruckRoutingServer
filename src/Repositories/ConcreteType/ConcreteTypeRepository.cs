@@ -57,5 +57,19 @@ namespace ConcreteMixerTruckRoutingServer.Repositories.ConcreteType
                 param: dto,
                 transaction: Context.Transaction);
         }
+
+        public async Task<bool> UpdateConcreteType(PutRequestDto dto)
+        {
+            var amountOfAffectedRows = await Context.Connection.ExecuteAsync(
+                sql: $@"
+                    UPDATE ConcreteType 
+                    SET Description = @Description,
+                        Available = @Available
+                    WHERE ConcreteTypeId = @ConcreteTypeId",
+                param: dto,
+                transaction: Context.Transaction);
+
+            return amountOfAffectedRows > 0;
+        }
     }
 }

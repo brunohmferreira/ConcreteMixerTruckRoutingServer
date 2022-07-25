@@ -3,6 +3,7 @@ using ConcreteMixerTruckRoutingServer.Exceptions.General;
 using ConcreteMixerTruckRoutingServer.Services.Base;
 using ConcreteMixerTruckRoutingServer.Services.Construction.Validation;
 using ConcreteMixerTruckRoutingServer.Services.Extensions;
+using ConcreteMixerTruckRoutingServer.Services.Interfaces.Address;
 using ConcreteMixerTruckRoutingServer.Services.Interfaces.Client;
 using ConcreteMixerTruckRoutingServer.Services.Interfaces.ConcreteType;
 using ConcreteMixerTruckRoutingServer.Services.Interfaces.Construction;
@@ -16,15 +17,17 @@ namespace ConcreteMixerTruckRoutingServer.Services.Construction
 
         private readonly IClientService ClientService;
         private readonly IConcreteTypeService ConcreteTypeService;
+        private readonly IAddressService AddressService;
 
         #endregion
 
         #region Constructor
 
-        public ConstructionService(IDatabaseUnitOfWork unitOfWork, IClientService clientService, IConcreteTypeService concreteTypeService) : base(unitOfWork)
+        public ConstructionService(IDatabaseUnitOfWork unitOfWork, IClientService clientService, IConcreteTypeService concreteTypeService, IAddressService addressService) : base(unitOfWork)
         {
             ClientService = clientService;
             ConcreteTypeService = concreteTypeService;
+            AddressService = addressService;
         }
 
         #endregion
@@ -40,6 +43,7 @@ namespace ConcreteMixerTruckRoutingServer.Services.Construction
             {
                 var clientDto = await ClientService.GetClientById(construction.ClientId);
                 var concreteTypeDto = await ConcreteTypeService.GetConcreteTypeById(construction.ConcreteTypeId);
+                var addressDto = await AddressService.GetAddressByConstructionId(construction.ConstructionId);
 
                 var dto = new GetResponseDto()
                 {
@@ -48,7 +52,8 @@ namespace ConcreteMixerTruckRoutingServer.Services.Construction
                     VolumeDemand = construction.VolumeDemand,
                     Delivered = construction.Delivered,
                     Client = clientDto,
-                    ConcreteType = concreteTypeDto
+                    ConcreteType = concreteTypeDto,
+                    Address = addressDto
                 };
 
                 response.Add(dto);
@@ -73,6 +78,8 @@ namespace ConcreteMixerTruckRoutingServer.Services.Construction
             else
                 throw new ItemNotFoundException("concrete type");
 
+            var addressDto = await AddressService.GetAddressByConstructionId(construction.ConstructionId);
+
             var response = new GetResponseDto()
             {
                 ConstructionId = construction.ConstructionId,
@@ -80,7 +87,8 @@ namespace ConcreteMixerTruckRoutingServer.Services.Construction
                 VolumeDemand = construction.VolumeDemand,
                 Delivered = construction.Delivered,
                 Client = clientDto,
-                ConcreteType = concreteTypeDto
+                ConcreteType = concreteTypeDto,
+                Address = addressDto
             };
 
             return response;
@@ -98,8 +106,38 @@ namespace ConcreteMixerTruckRoutingServer.Services.Construction
                 if (!dto.ConcreteType.ConcreteTypeId.HasValue)
                     dto.ConcreteType.ConcreteTypeId = await ConcreteTypeService.InsertConcreteType(dto.ConcreteType);
 
-                int constructionId = await DatabaseUnitOfWork.Construction.InsertConstruction(dto);
+                var constructionId = await DatabaseUnitOfWork.Construction.InsertConstruction(dto);
+                await AddressService.InsertAddress(dto.Address, constructionId);
                 return constructionId;
+            }, DatabaseUnitOfWork);
+
+            return response;
+        }
+
+        public async Task<bool> UpdateConstruction(PutRequestDto dto)
+        {
+            await dto.Validate<UpdateValidation, PutRequestDto>(DatabaseUnitOfWork);
+
+            var response = await TransactionExtension.ExecuteInTransactionAsync(async () =>
+            {
+                var updated = await ClientService.UpdateClient(dto.Client);
+                updated = await ConcreteTypeService.UpdateConcreteType(dto.ConcreteType);
+
+                updated = await DatabaseUnitOfWork.Construction.UpdateConstruction(dto);
+                updated = await AddressService.UpdateAddress(dto.Address, dto.ConstructionId);
+                return updated;
+            }, DatabaseUnitOfWork);
+
+            return response;
+        }
+
+        public async Task<bool> DeleteConstruction(int constructionId)
+        {
+            var response = await TransactionExtension.ExecuteInTransactionAsync(async () =>
+            {
+                var deleted = await DatabaseUnitOfWork.Address.DeleteAddress(constructionId);
+                deleted = await DatabaseUnitOfWork.Construction.DeleteConstruction(constructionId);
+                return deleted;
             }, DatabaseUnitOfWork);
 
             return response;
