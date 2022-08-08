@@ -31,15 +31,18 @@ namespace ConcreteMixerTruckRoutingServer.Services.ConcreteType.Validation
             RuleFor(x => x)
                 .MustAsync(async (model, context) =>
                 {
-                    var dto = new GetRequestDto()
+                    if (model != null && model.ConcreteTypeId == 0)
                     {
-                        Description = model.Description
-                    };
+                        var dto = new GetRequestDto()
+                        {
+                            Description = model.Description
+                        };
 
-                    var concreteTypes = await UnitOfWork.ConcreteType.GetConcreteTypeByFilter(dto);
+                        var concreteTypes = await UnitOfWork.ConcreteType.GetConcreteTypeByFilter(dto);
 
-                    if (concreteTypes != null && concreteTypes.Any())
-                        return false;
+                        if (concreteTypes != null && concreteTypes.Any())
+                            return false;
+                    }
 
                     return true;
                 })

@@ -26,6 +26,7 @@ namespace ConcreteMixerTruckRoutingServer.Api.Startups
                 ConstructionMappingProfile();
                 ClientMappingProfile();
                 ConcreteTypeMappingProfile();
+                ConcreteMixerTruckMappingProfile();
             }
 
             public void GeralMappingProfile() { }
@@ -56,6 +57,11 @@ namespace ConcreteMixerTruckRoutingServer.Api.Startups
                 CreateMap<Dtos.ConcreteType.GetResponseDto, Models.ConcreteType.GetResponseModel>();
                 CreateMap<Models.ConcreteType.PostRequestModel, Dtos.ConcreteType.PostRequestDto>();
                 CreateMap<Models.ConcreteType.PutRequestModel, Dtos.ConcreteType.PutRequestDto>();
+            }
+            
+            public void ConcreteMixerTruckMappingProfile()
+            {
+                CreateMap<Dtos.ConcreteMixerTruck.GetResponseDto, Models.ConcreteMixerTruck.GetResponseModel>();
             }
         }
     }

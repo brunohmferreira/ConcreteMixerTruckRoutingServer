@@ -8,6 +8,18 @@ namespace ConcreteMixerTruckRoutingServer.Repositories.Client
 {
     public class ClientRepository : RepositoryBase, IClientRepository
     {
+        public async Task<IEnumerable<ClientEntity>> GetClientsList()
+        {
+            return await Context.Connection.QueryAsync<ClientEntity>(
+                sql: $@"
+                    SELECT 
+                        C.ClientId,
+                        C.Name,
+                        C.ChangeDatetime
+                    FROM Client C",
+                transaction: Context.Transaction);
+        }
+
         public async Task<ClientEntity> GetClientById(int clientId)
         {
             return await Context.Connection.QuerySingleOrDefaultAsync<ClientEntity>(

@@ -18,9 +18,31 @@ namespace ConcreteMixerTruckRoutingServer.Services.ConcreteType
 
         #region public
 
+        public async Task<List<GetResponseDto>> GetConcreteTypesList()
+        {
+            var response = new List<GetResponseDto>();
+            var concreteTypesList = await DatabaseUnitOfWork.ConcreteType.GetConcreteTypesList().ValidateEmptyList();
+
+            foreach (var concreteType in concreteTypesList)
+            {
+                var dto = new GetResponseDto()
+                {
+                    ConcreteTypeId = concreteType.ConcreteTypeId,
+                    Description = concreteType.Description
+                };
+
+                response.Add(dto);
+            }
+
+            return response;
+        }
+
         public async Task<GetResponseDto> GetConcreteTypeById(int concreteTypeId)
         {
-            var entity = await DatabaseUnitOfWork.ConcreteType.GetConcreteTypeById(concreteTypeId);
+            var entity = await DatabaseUnitOfWork.ConcreteType.GetConcreteTypeById(concreteTypeId).ValidateItemNotFound();
+
+            if (entity == null)
+                throw new GenericBadRequestException("The concrete type requested was not found.");
 
             if (!entity.Available)
                 throw new GenericBadRequestException("The concrete type requested is not available.");

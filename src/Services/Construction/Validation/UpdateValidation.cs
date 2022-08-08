@@ -41,17 +41,20 @@ namespace ConcreteMixerTruckRoutingServer.Services.Construction.Validation
             RuleFor(x => x)
                 .MustAsync(async (model, context) =>
                 {
-                    var dto = new GetRequestDto()
+                    if(model.ConstructionId == 0)
                     {
-                        Description = model.Description,
-                        VolumeDemand = model.VolumeDemand,
-                        Delivered = false
-                    };
+                        var dto = new GetRequestDto()
+                        {
+                            Description = model.Description,
+                            VolumeDemand = model.VolumeDemand,
+                            Delivered = false
+                        };
 
-                    var constructions = await UnitOfWork.Construction.GetConstructionsByFilter(dto);
+                        var constructions = await UnitOfWork.Construction.GetConstructionsByFilter(dto);
 
-                    if (constructions != null && constructions.Any())
-                        return false;
+                        if (constructions != null && constructions.Any())
+                            return false;
+                    }
 
                     return true;
                 })

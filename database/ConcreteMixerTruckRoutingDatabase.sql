@@ -106,6 +106,12 @@ CREATE TABLE ConcreteMixerTruck (
 
 GO
 
+INSERT INTO ConcreteMixerTruck (MaximumCapacity, UseCost, Available, ChangeDatetime)
+VALUES (8.00, 10.00, 1, GETDATE());
+
+INSERT INTO ConcreteMixerTruck (MaximumCapacity, UseCost, Available, ChangeDatetime)
+VALUES (8.00, 10.00, 1, GETDATE());
+
 -----------------------------------------------------------------
 
 CREATE TABLE Route (

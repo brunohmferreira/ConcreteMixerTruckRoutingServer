@@ -8,6 +8,20 @@ namespace ConcreteMixerTruckRoutingServer.Repositories.ConcreteType
 {
     public class ConcreteTypeRepository : RepositoryBase, IConcreteTypeRepository
     {
+        public async Task<IEnumerable<ConcreteTypeEntity>> GetConcreteTypesList()
+        {
+            return await Context.Connection.QueryAsync<ConcreteTypeEntity>(
+                sql: $@"
+                    SELECT 
+                        C.ConcreteTypeId,
+                        C.Description,
+                        C.Available,
+                        C.ChangeDatetime
+                    FROM ConcreteType C 
+                    WHERE C.Available = 1",
+                transaction: Context.Transaction);
+        }
+
         public async Task<ConcreteTypeEntity> GetConcreteTypeById(int concreteTypeId)
         {
             return await Context.Connection.QuerySingleOrDefaultAsync<ConcreteTypeEntity>(

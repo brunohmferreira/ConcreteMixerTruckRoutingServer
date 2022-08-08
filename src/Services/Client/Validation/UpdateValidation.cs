@@ -31,15 +31,18 @@ namespace ConcreteMixerTruckRoutingServer.Services.Client.Validation
             RuleFor(x => x)
                 .MustAsync(async (model, context) =>
                 {
-                    var dto = new GetRequestDto()
+                    if (model != null && model.ClientId == 0)
                     {
-                        Name = model.Name
-                    };
+                        var dto = new GetRequestDto()
+                        {
+                            Name = model.Name
+                        };
 
-                    var clients = await UnitOfWork.Client.GetClientByFilter(dto);
+                        var clients = await UnitOfWork.Client.GetClientByFilter(dto);
 
-                    if (clients != null && clients.Any())
-                        return false;
+                        if (clients != null && clients.Any())
+                            return false;
+                    }
 
                     return true;
                 })

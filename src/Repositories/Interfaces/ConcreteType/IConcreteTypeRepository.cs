@@ -6,6 +6,7 @@ namespace ConcreteMixerTruckRoutingServer.Repositories.Interfaces.ConcreteType
 {
     public interface IConcreteTypeRepository : IRepositoryContext
     {
+        Task<IEnumerable<ConcreteTypeEntity>> GetConcreteTypesList();
         Task<ConcreteTypeEntity> GetConcreteTypeById(int concreteTypeId);
         Task<IEnumerable<ClientEntity>> GetConcreteTypeByFilter(GetRequestDto filter);
         Task<int> InsertConcreteType(PostRequestDto dto);

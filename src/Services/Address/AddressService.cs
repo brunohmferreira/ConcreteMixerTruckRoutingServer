@@ -19,7 +19,7 @@ namespace ConcreteMixerTruckRoutingServer.Services.Address
 
         public async Task<GetResponseDto> GetAddressByConstructionId(int constructionId)
         {
-            var entity = await DatabaseUnitOfWork.Address.GetAddressByConstructionId(constructionId);
+            var entity = await DatabaseUnitOfWork.Address.GetAddressByConstructionId(constructionId).ValidateItemNotFound();
 
             var response = new GetResponseDto()
             {
@@ -42,6 +42,8 @@ namespace ConcreteMixerTruckRoutingServer.Services.Address
 
         public async Task<int> InsertAddress(PostRequestDto dto, int constructionId)
         {
+            dto.Latitude = 1;
+            dto.Longitude = 1;
             await dto.Validate<InsertValidation, PostRequestDto>(DatabaseUnitOfWork);
 
             var response = await TransactionExtension.ExecuteInTransactionAsync(async () =>
@@ -54,6 +56,8 @@ namespace ConcreteMixerTruckRoutingServer.Services.Address
 
         public async Task<bool> UpdateAddress(PutRequestDto dto, int constructionId)
         {
+            dto.Latitude = 1;
+            dto.Longitude = 1;
             await dto.Validate<UpdateValidation, PutRequestDto>(DatabaseUnitOfWork);
 
             var response = await TransactionExtension.ExecuteInTransactionAsync(async () =>

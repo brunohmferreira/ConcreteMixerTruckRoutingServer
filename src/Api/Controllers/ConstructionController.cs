@@ -71,21 +71,15 @@ public class ConstructionController : ControllerBase
     /// Inserts a new construction, client and concrete type
     /// </summary>
     /// <param name="model">Request model</param>
+    /// <returns>Construction identifier</returns>
     [HttpPost(Name = "PostConstruction")]
     [ProducesResponseType(typeof(ExceptionModel), (int)HttpStatusCode.BadRequest)]
     [ProducesResponseType(typeof(ExceptionModel), (int)HttpStatusCode.InternalServerError)]
     public async Task<IActionResult> Post([FromBody] PostRequestModel model)
     {
         var dto = Mapper.Map<PostRequestDto>(model);
-        var constructionId = await ConstructionService.InsertConstruction(dto);
-
-        return CreatedAtAction(nameof(GetById),
-            new
-            {
-                constructionId,
-                versao = HttpContext.GetRequestedApiVersion()?.ToString()
-            },
-            constructionId);
+        int response = await ConstructionService.InsertConstruction(dto);
+        return Ok(response);
     }
 
     #endregion
@@ -96,13 +90,14 @@ public class ConstructionController : ControllerBase
     /// Updates a construction
     /// </summary>
     /// <param name="model">Request model</param>
+    /// <returns>Boolean confirming the action</returns>
     [HttpPut(Name = "PutConstruction")]
     [ProducesResponseType(typeof(ExceptionModel), (int)HttpStatusCode.BadRequest)]
     [ProducesResponseType(typeof(ExceptionModel), (int)HttpStatusCode.InternalServerError)]
     public async Task<IActionResult> Put([FromBody] PutRequestModel model)
     {
         var dto = Mapper.Map<PutRequestDto>(model);
-        var response = await ConstructionService.UpdateConstruction(dto);
+        bool response = await ConstructionService.UpdateConstruction(dto);
         return Ok(response);
     }
 
@@ -113,13 +108,14 @@ public class ConstructionController : ControllerBase
     /// <summary>
     /// Deletes a construction by id
     /// </summary>
-    /// /// <param name="constructionId">Construction identifier</param>
+    /// <param name="constructionId">Construction identifier</param>
+    /// <returns>Boolean confirming the action</returns>
     [HttpDelete("{constructionId}", Name = "DeleteConstruction")]
     [ProducesResponseType(typeof(ExceptionModel), (int)HttpStatusCode.BadRequest)]
     [ProducesResponseType(typeof(ExceptionModel), (int)HttpStatusCode.InternalServerError)]
     public async Task<IActionResult> Delete(int constructionId)
     {
-        var response = await ConstructionService.DeleteConstruction(constructionId);
+        bool response = await ConstructionService.DeleteConstruction(constructionId);
         return Ok(response);
     }
 

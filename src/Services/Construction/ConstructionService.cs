@@ -37,7 +37,7 @@ namespace ConcreteMixerTruckRoutingServer.Services.Construction
         public async Task<List<GetResponseDto>> GetConstructionsList()
         {
             var response = new List<GetResponseDto>();
-            var constructionsList = await DatabaseUnitOfWork.Construction.GetConstructionsList();
+            var constructionsList = await DatabaseUnitOfWork.Construction.GetConstructionsList().ValidateEmptyList();
 
             foreach (var construction in constructionsList)
             {
@@ -120,8 +120,25 @@ namespace ConcreteMixerTruckRoutingServer.Services.Construction
 
             var response = await TransactionExtension.ExecuteInTransactionAsync(async () =>
             {
-                var updated = await ClientService.UpdateClient(dto.Client);
-                updated = await ConcreteTypeService.UpdateConcreteType(dto.ConcreteType);
+                var updated = false;
+
+                if (dto.Client.ClientId.HasValue)
+                    updated = await ClientService.UpdateClient(dto.Client);
+                else
+                {
+                    var clientId = await ClientService.InsertClient(new Dtos.Client.PostRequestDto { Name = dto.Client.Name });
+                    dto.Client.ClientId = clientId;
+                    updated = clientId > 0;
+                }
+
+                if (dto.ConcreteType.ConcreteTypeId.HasValue)
+                    updated = await ConcreteTypeService.UpdateConcreteType(dto.ConcreteType);
+                else
+                {
+                    var concreteTypeId = await ConcreteTypeService.InsertConcreteType(new Dtos.ConcreteType.PostRequestDto { Description = dto.ConcreteType.Description, Available = dto.ConcreteType.Available });
+                    dto.ConcreteType.ConcreteTypeId = concreteTypeId;
+                    updated = concreteTypeId > 0;
+                }
 
                 updated = await DatabaseUnitOfWork.Construction.UpdateConstruction(dto);
                 updated = await AddressService.UpdateAddress(dto.Address, dto.ConstructionId);
