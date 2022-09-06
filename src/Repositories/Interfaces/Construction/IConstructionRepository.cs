@@ -11,6 +11,7 @@ namespace ConcreteMixerTruckRoutingServer.Repositories.Interfaces.Construction
         Task<IEnumerable<ConstructionEntity>> GetConstructionsByFilter(GetRequestDto filter);
         Task<int> InsertConstruction(PostRequestDto dto);
         Task<bool> UpdateConstruction(PutRequestDto dto);
+        Task<bool> DeliverConstruction(int constructionId);
         Task<bool> DeleteConstruction(int constructionId);
     }
 }

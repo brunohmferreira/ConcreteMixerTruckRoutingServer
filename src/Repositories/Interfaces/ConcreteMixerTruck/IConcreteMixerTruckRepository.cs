@@ -6,5 +6,6 @@ namespace ConcreteMixerTruckRoutingServer.Repositories.Interfaces.ConcreteMixerT
     public interface IConcreteMixerTruckRepository : IRepositoryContext
     {
         Task<IEnumerable<ConcreteMixerTruckEntity>> GetConcreteMixerTrucksList();
+        Task<bool> MakeConcreteMixerTruckUnavailable(int concreteMixerTruckId);
     }
 }

@@ -18,44 +18,49 @@ namespace ConcreteMixerTruckRoutingServer.Api.Startups
                     if (errorContext == null)
                         return;
 
-                    var resultado = new ExceptionModel();
+                    var result = new ExceptionModel();
 
                     if (errorContext.Error.GetType().IsAssignableFrom(typeof(ItemNotFoundException)))
                     {
-                        resultado.HttpStatus = (int)HttpStatusCode.NotFound;
-                        resultado.Messages.Add(errorContext.Error.GetBaseException().Message);
+                        result.HttpStatus = (int)HttpStatusCode.NotFound;
+                        result.Messages.Add(errorContext.Error.GetBaseException().Message);
                     }
                     else if (errorContext.Error.GetType().IsAssignableFrom(typeof(EmptyListException)))
                     {
-                        resultado.HttpStatus = (int)HttpStatusCode.NoContent;
-                        resultado.Messages.Add(errorContext.Error.GetBaseException().Message);
+                        result.HttpStatus = (int)HttpStatusCode.NoContent;
+                        result.Messages.Add(errorContext.Error.GetBaseException().Message);
                     }
                     else if (errorContext.Error.GetType().IsAssignableFrom(typeof(FluentValidationException)))
                     {
-                        resultado.HttpStatus = (int)HttpStatusCode.BadRequest;
-                        resultado.Messages.AddRange(((FluentValidationException)errorContext.Error).ErrorList);
+                        result.HttpStatus = (int)HttpStatusCode.BadRequest;
+                        result.Messages.AddRange(((FluentValidationException)errorContext.Error).ErrorList);
                     }
                     else if (errorContext.Error.GetType().IsAssignableFrom(typeof(GenericBadRequestException)))
                     {
-                        resultado.HttpStatus = (int)HttpStatusCode.BadRequest;
-                        resultado.Messages.Add(errorContext.Error.GetBaseException().Message);
+                        result.HttpStatus = (int)HttpStatusCode.BadRequest;
+                        result.Messages.Add(errorContext.Error.GetBaseException().Message);
+                    }
+                    else if (errorContext.Error.GetType().IsAssignableFrom(typeof(OptimisationBadRequestException)))
+                    {
+                        result.HttpStatus = (int)HttpStatusCode.BadRequest;
+                        result.Messages.Add(errorContext.Error.GetBaseException().Message);
                     }
                     else
                     {
-                        resultado.HttpStatus = (int)HttpStatusCode.InternalServerError;
-                        resultado.Messages.Add(errorContext.Error.Message);
+                        result.HttpStatus = (int)HttpStatusCode.InternalServerError;
+                        result.Messages.Add(errorContext.Error.Message);
                     }
 
-                    resultado.Details = errorContext.Error.StackTrace;
+                    result.Details = errorContext.Error.StackTrace;
 
-                    context.Response.StatusCode = resultado.HttpStatus;
+                    context.Response.StatusCode = result.HttpStatus;
                     context.Response.ContentType = "application/json";
 
-                    var resultadoJson = JsonSerializer.Serialize<ExceptionModel>(resultado);
-                    var bufferUtf8 = System.Text.Encoding.UTF8.GetBytes(resultadoJson);
+                    var resultJson = JsonSerializer.Serialize<ExceptionModel>(result);
+                    var bufferUtf8 = System.Text.Encoding.UTF8.GetBytes(resultJson);
                     context.Response.ContentLength = bufferUtf8.Length;
 
-                    await context.Response.WriteAsync(resultadoJson);
+                    await context.Response.WriteAsync(resultJson);
                 });
             });
         }

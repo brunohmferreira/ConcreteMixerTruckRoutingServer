@@ -22,5 +22,21 @@ namespace ConcreteMixerTruckRoutingServer.Repositories.ConcreteMixerTruck
                 transaction: Context.Transaction);
         }
 
+        public async Task<bool> MakeConcreteMixerTruckUnavailable(int concreteMixerTruckId)
+        {
+            var amountOfAffectedRows = await Context.Connection.ExecuteAsync(
+                sql: $@"
+                    UPDATE ConcreteMixerTruck 
+                    SET Available = 0
+                    WHERE ConcreteMixerTruckId = @ConcreteMixerTruckId",
+                param: new
+                {
+                    ConcreteMixerTruckId = concreteMixerTruckId
+                },
+                transaction: Context.Transaction);
+
+            return amountOfAffectedRows > 0;
+        }
+
     }
 }

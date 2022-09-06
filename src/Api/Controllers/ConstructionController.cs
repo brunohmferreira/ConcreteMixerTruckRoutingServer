@@ -51,7 +51,7 @@ public class ConstructionController : ControllerBase
     /// <summary>
     /// Gets the construction by id
     /// </summary>
-    /// /// <param name="constructionId">Construction identifier</param>
+    /// <param name="constructionId">Construction identifier</param>
     /// <returns>Construction</returns>
     [HttpGet("{constructionId}", Name = "GetConstructionById")]
     [Produces("application/json", Type = typeof(GetResponseModel))]

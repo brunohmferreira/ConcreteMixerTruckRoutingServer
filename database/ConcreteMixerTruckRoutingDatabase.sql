@@ -117,6 +117,9 @@ VALUES (8.00, 10.00, 1, GETDATE());
 CREATE TABLE Route (
 	RouteId 				INT IDENTITY NOT NULL,
 	ConcreteMixerTruckId    INT NOT NULL,
+	CarriedOut  			BIT NOT NULL,
+	Canceled				BIT NOT NULL,
+	CreateDatetime			DATETIME NOT NULL,
 	PRIMARY KEY (RouteId),
 	FOREIGN KEY (ConcreteMixerTruckId) REFERENCES dbo.ConcreteMixerTruck(ConcreteMixerTruckId)
 )
@@ -131,9 +134,7 @@ CREATE TABLE SubRoute (
 	ConstructionOriginId	INT NOT NULL,
 	ConstructionDestinyId	INT NOT NULL,	
 	PRIMARY KEY (SubRouteId),
-	FOREIGN KEY (RouteId) REFERENCES dbo.Route(RouteId),
-	FOREIGN KEY (ConstructionOriginId) REFERENCES dbo.Construction(ConstructionId),
-	FOREIGN KEY (ConstructionDestinyId) REFERENCES dbo.Construction(ConstructionId)
+	FOREIGN KEY (RouteId) REFERENCES dbo.Route(RouteId)
 )
 
 GO

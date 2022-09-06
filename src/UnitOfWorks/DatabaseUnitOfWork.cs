@@ -4,6 +4,8 @@ using ConcreteMixerTruckRoutingServer.Repositories.Interfaces.Client;
 using ConcreteMixerTruckRoutingServer.Repositories.Interfaces.ConcreteMixerTruck;
 using ConcreteMixerTruckRoutingServer.Repositories.Interfaces.ConcreteType;
 using ConcreteMixerTruckRoutingServer.Repositories.Interfaces.Construction;
+using ConcreteMixerTruckRoutingServer.Repositories.Interfaces.Route;
+using ConcreteMixerTruckRoutingServer.Repositories.Interfaces.SubRoute;
 using ConcreteMixerTruckRoutingServer.UnitOfWorks.Base;
 using ConcreteMixerTruckRoutingServer.UnitOfWorks.Interfaces;
 
@@ -27,6 +29,8 @@ namespace ConcreteMixerTruckRoutingServer.UnitOfWorks
         public IClientRepository Client { get => Configure<IClientRepository>(); }
         public IConcreteTypeRepository ConcreteType { get => Configure<IConcreteTypeRepository>(); }
         public IConcreteMixerTruckRepository ConcreteMixerTruck { get => Configure<IConcreteMixerTruckRepository>(); }
+        public IRouteRepository Route { get => Configure<IRouteRepository>(); }
+        public ISubRouteRepository SubRoute { get => Configure<ISubRouteRepository>(); }
         
         #endregion
     }

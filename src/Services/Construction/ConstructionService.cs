@@ -32,7 +32,7 @@ namespace ConcreteMixerTruckRoutingServer.Services.Construction
 
         #endregion
 
-        #region public
+        #region Public
 
         public async Task<List<GetResponseDto>> GetConstructionsList()
         {

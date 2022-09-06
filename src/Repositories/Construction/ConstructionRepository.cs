@@ -20,7 +20,8 @@ namespace ConcreteMixerTruckRoutingServer.Repositories.Construction
                         C.VolumeDemand,
                         C.Delivered,
                         C.ChangeDatetime
-                    FROM Construction C",
+                    FROM Construction C
+                    WHERE Delivered = 0",
                 transaction: Context.Transaction);
         }
 
@@ -116,6 +117,22 @@ namespace ConcreteMixerTruckRoutingServer.Repositories.Construction
                     ConcreteTypeId = dto.ConcreteType.ConcreteTypeId,
                     VolumeDemand = dto.VolumeDemand,
                     Delivered = dto.Delivered
+                },
+                transaction: Context.Transaction);
+
+            return amountOfAffectedRows > 0;
+        }
+
+        public async Task<bool> DeliverConstruction(int constructionId)
+        {
+            var amountOfAffectedRows = await Context.Connection.ExecuteAsync(
+                sql: $@"
+                    UPDATE Construction 
+                    SET Delivered = 1
+                    WHERE ConstructionId = @ConstructionId",
+                param: new
+                {
+                    ConstructionId = constructionId
                 },
                 transaction: Context.Transaction);
 
