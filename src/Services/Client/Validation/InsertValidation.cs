@@ -16,7 +16,7 @@ namespace ConcreteMixerTruckRoutingServer.Services.Client.Validation
 
                     return true;
                 })
-                .WithMessage("The client can't be null.");
+                .WithMessage("O cliente não pode ser nulo.");
 
             RuleFor(x => x)
                 .Must((model) =>
@@ -26,7 +26,7 @@ namespace ConcreteMixerTruckRoutingServer.Services.Client.Validation
 
                     return true;
                 })
-                .WithMessage("The client must have a name.");
+                .WithMessage("O cliente deve ter um nome.");
 
             RuleFor(x => x)
                 .MustAsync(async (model, context) =>
@@ -43,7 +43,7 @@ namespace ConcreteMixerTruckRoutingServer.Services.Client.Validation
 
                     return true;
                 })
-                .WithMessage("The client already exists.");
+                .WithMessage("Esse cliente já existe.");
         }
     }
 }

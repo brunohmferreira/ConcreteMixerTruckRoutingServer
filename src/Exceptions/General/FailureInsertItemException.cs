@@ -6,6 +6,6 @@ namespace ConcreteMixerTruckRoutingServer.Exceptions.General
     {
         public FailureInsertItemException(string entity) : base(string.Format(BASE_MESSAGE, entity)) { }
 
-        public const string BASE_MESSAGE = "Failed to include {0} item.";
+        public const string BASE_MESSAGE = "Falha ao incluir {0}.";
     }
 }

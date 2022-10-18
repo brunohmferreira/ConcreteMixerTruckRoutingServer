@@ -16,7 +16,7 @@ namespace ConcreteMixerTruckRoutingServer.Services.Address.Validation
 
                     return true;
                 })
-                .WithMessage("The address can't be null.");
+                .WithMessage("O endereço não pode ser nulo.");
 
             RuleFor(x => x)
                 .Must((model) =>
@@ -26,7 +26,7 @@ namespace ConcreteMixerTruckRoutingServer.Services.Address.Validation
 
                     return true;
                 })
-                .WithMessage("The address must have a street name.");
+                .WithMessage("O endereço deve ter um nome de logradouro.");
 
             RuleFor(x => x)
                 .Must((model) =>
@@ -40,7 +40,7 @@ namespace ConcreteMixerTruckRoutingServer.Services.Address.Validation
 
                     return true;
                 })
-                .WithMessage("The address must have a street name.");
+                .WithMessage("O endereço deve ter um nome de logradouro.");
 
             RuleFor(x => x)
                 .Must((model) =>
@@ -50,7 +50,7 @@ namespace ConcreteMixerTruckRoutingServer.Services.Address.Validation
 
                     return true;
                 })
-                .WithMessage("The address must have a number or be no number.");
+                .WithMessage("O endereço deve ter um número ou ser S/N.");
 
             RuleFor(x => x)
                 .Must((model) =>
@@ -60,7 +60,7 @@ namespace ConcreteMixerTruckRoutingServer.Services.Address.Validation
 
                     return true;
                 })
-                .WithMessage("The address must have a number or be no number.");
+                .WithMessage("O endereço deve ter um número ou ser S/N.");
 
             RuleFor(x => x)
                 .Must((model) =>
@@ -70,7 +70,7 @@ namespace ConcreteMixerTruckRoutingServer.Services.Address.Validation
 
                     return true;
                 })
-                .WithMessage("The address must have a neighborhood name.");
+                .WithMessage("O endereço deve ter o nome do bairro.");
 
             RuleFor(x => x)
                 .Must((model) =>
@@ -80,7 +80,7 @@ namespace ConcreteMixerTruckRoutingServer.Services.Address.Validation
 
                     return true;
                 })
-                .WithMessage("The address must have a Zip Code.");
+                .WithMessage("O endereço deve ter um CEP.");
 
             RuleFor(x => x)
                 .Must((model) =>
@@ -91,7 +91,7 @@ namespace ConcreteMixerTruckRoutingServer.Services.Address.Validation
 
                     return true;
                 })
-                .WithMessage("The address has an invalid Zip Code.");
+                .WithMessage("O endereço deve ter um CEP.");
 
 
             RuleFor(x => x)
@@ -102,7 +102,7 @@ namespace ConcreteMixerTruckRoutingServer.Services.Address.Validation
 
                    return true;
                })
-               .WithMessage("The address must have a city name.");
+               .WithMessage("O endereço deve ter o nome da cidade.");
             
             RuleFor(x => x)
                .Must((model) =>
@@ -112,7 +112,7 @@ namespace ConcreteMixerTruckRoutingServer.Services.Address.Validation
 
                    return true;
                })
-               .WithMessage("The address must have a state name.");
+               .WithMessage("O endereço deve ter o nome do estado.");
             
             RuleFor(x => x)
                .Must((model) =>
@@ -122,7 +122,7 @@ namespace ConcreteMixerTruckRoutingServer.Services.Address.Validation
 
                    return true;
                })
-               .WithMessage("The address must have a country name.");
+               .WithMessage("O endereço deve ter o nome do país.");
 
             RuleFor(x => x)
                .Must((model) =>
@@ -132,7 +132,7 @@ namespace ConcreteMixerTruckRoutingServer.Services.Address.Validation
 
                    return true;
                })
-               .WithMessage("The address must have a latitude.");
+               .WithMessage("O endereço deve ter uma latitude.");
 
             RuleFor(x => x)
               .Must((model) =>
@@ -142,7 +142,7 @@ namespace ConcreteMixerTruckRoutingServer.Services.Address.Validation
 
                   return true;
               })
-              .WithMessage("The address must have a longitude.");
+              .WithMessage("O endereço deve ter uma longitude.");
         }
     }
 }

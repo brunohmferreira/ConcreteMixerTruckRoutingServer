@@ -106,7 +106,7 @@ namespace ConcreteMixerTruckRoutingServer.Services.Route
                 CalculationResponseDto dto = JsonConvert.DeserializeObject<CalculationResponseDto>(jsonData);
 
                 if (dto == null)
-                    throw new ItemNotFoundException("Route");
+                    throw new ItemNotFoundException("rota");
 
                 await SaveRoutes(dto, constructionListWithDepot, concreteMixerTruckList);
 

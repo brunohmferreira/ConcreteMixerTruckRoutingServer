@@ -42,10 +42,10 @@ namespace ConcreteMixerTruckRoutingServer.Services.ConcreteType
             var entity = await DatabaseUnitOfWork.ConcreteType.GetConcreteTypeById(concreteTypeId).ValidateItemNotFound();
 
             if (entity == null)
-                throw new GenericBadRequestException("The concrete type requested was not found.");
+                throw new ItemNotFoundException("tipo de concreto");
 
             if (!entity.Available)
-                throw new GenericBadRequestException("The concrete type requested is not available.");
+                throw new GenericBadRequestException("Esse tipo de concreto não está disponível no momento.");
 
             var response = new GetResponseDto()
             {

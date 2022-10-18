@@ -70,13 +70,13 @@ namespace ConcreteMixerTruckRoutingServer.Services.Construction
             if (construction.ClientId != 0)
                 clientDto = await ClientService.GetClientById(construction.ClientId);
             else
-                throw new ItemNotFoundException("client");
+                throw new ItemNotFoundException("cliente");
 
             var concreteTypeDto = new Dtos.ConcreteType.GetResponseDto();
             if (construction.ConcreteTypeId != 0)
                 concreteTypeDto = await ConcreteTypeService.GetConcreteTypeById(construction.ConcreteTypeId);
             else
-                throw new ItemNotFoundException("concrete type");
+                throw new ItemNotFoundException("tipo de concreto");
 
             var addressDto = await AddressService.GetAddressByConstructionId(construction.ConstructionId);
 

@@ -16,7 +16,7 @@ namespace ConcreteMixerTruckRoutingServer.Services.ConcreteType.Validation
 
                     return true;
                 })
-                .WithMessage("The concrete type can't be null.");
+                .WithMessage("O tipo de concreto não pode ser nulo.");
 
             RuleFor(x => x)
                 .Must((model) =>
@@ -26,7 +26,7 @@ namespace ConcreteMixerTruckRoutingServer.Services.ConcreteType.Validation
 
                     return true;
                 })
-                .WithMessage("The concrete type must have a description.");
+                .WithMessage("O tipo de concreto deve ter uma descrição.");
 
             RuleFor(x => x)
                 .MustAsync(async (model, context) =>
@@ -46,7 +46,7 @@ namespace ConcreteMixerTruckRoutingServer.Services.ConcreteType.Validation
 
                     return true;
                 })
-                .WithMessage("The concrete type already exists.");
+                .WithMessage("Esse tipo de concreto já existe.");
         }
     }
 }

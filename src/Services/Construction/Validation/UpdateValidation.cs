@@ -16,7 +16,7 @@ namespace ConcreteMixerTruckRoutingServer.Services.Construction.Validation
 
                     return true;
                 })
-                .WithMessage("The construction can't be null.");
+                .WithMessage("A obra não pode ser nula.");
 
             RuleFor(x => x)
                 .Must((model) =>
@@ -26,7 +26,7 @@ namespace ConcreteMixerTruckRoutingServer.Services.Construction.Validation
 
                     return true;
                 })
-                .WithMessage("The construction must have a description.");
+                .WithMessage("A obra deve ter uma descrição.");
 
             RuleFor(x => x)
                 .Must((model) =>
@@ -36,7 +36,7 @@ namespace ConcreteMixerTruckRoutingServer.Services.Construction.Validation
 
                     return true;
                 })
-                .WithMessage("The construction must have a volume demand ans it must be greater then 0 m³.");
+                .WithMessage("A obra deve ter uma demanda em volume e essa demanda deve ser maior que 0 m³.");
             
             RuleFor(x => x)
                 .MustAsync(async (model, context) =>
@@ -58,7 +58,7 @@ namespace ConcreteMixerTruckRoutingServer.Services.Construction.Validation
 
                     return true;
                 })
-                .WithMessage("The construction already exists and it is pending delivery.");
+                .WithMessage("Essa obra já existe e tem uma entrega pendente.");
         }
     }
 }

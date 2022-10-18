@@ -6,6 +6,6 @@ namespace ConcreteMixerTruckRoutingServer.Exceptions.General
     {
         public FailureDeleteItemException(string entity) : base(string.Format(BASE_MESSAGE, entity)) { }
 
-        public const string BASE_MESSAGE = "Failed to delete {0} item.";
+        public const string BASE_MESSAGE = "Falha ao deletar {0}.";
     }
 }
